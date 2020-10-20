@@ -99,13 +99,14 @@ setstate(prev=>{
   }
  return (
     <div className="main">
-
-  <h1>Scrum Board</h1>
-  <div className={"additem"} >
-          <input  placeholder="Add Task / Add Board" type="text" value={text} onChange={(e)=> setText(e.target.value)} required></input>
-           <button className={"addBtn"} onClick={addItem}>Add Task</button>
-            <button className={"addBtn"} onClick={add2Item}>Add Board</button>
-                            </div>
+      <h1>Scrum Board</h1>
+      <div className={"additem"} >
+        <input  placeholder="Add Task / Add Board" type="text" value={text} onChange={(e)=> setText(e.target.value)} required></input>
+        <div className={"additem__buttons"}>
+          <button className={"addBtn"} onClick={addItem}>Add Task</button>
+          <button className={"addBtn"} onClick={add2Item}>Add Board</button>
+        </div>
+      </div>
     <div className="App">
       <DragDropContext onDragEnd={handleDragEnd}>
         {_.map(state, (data,key)=>{
