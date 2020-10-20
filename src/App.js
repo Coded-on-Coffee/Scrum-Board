@@ -100,12 +100,67 @@ function App() {
   }
   return (
     <div className="main">
+ main
 
       <h1>Scrum Board</h1>
       <div className={"additem"} >
         <input placeholder="Add Task / Add Board" type="text" value={text} onChange={(e) => setText(e.target.value)} required></input>
         <button className={"addBtn"} onClick={addItem}>Add Task</button>
         <button className={"addBtn"} onClick={add2Item}>Add Board</button>
+
+      <h1>Scrum Board</h1>
+      <div className={"additem"} >
+        <input  placeholder="Add Task / Add Board" type="text" value={text} onChange={(e)=> setText(e.target.value)} required></input>
+        <div className={"additem__buttons"}>
+          <button className={"addBtn"} onClick={addItem}>Add Task</button>
+          <button className={"addBtn"} onClick={add2Item}>Add Board</button>
+        </div>
+      </div>
+    <div className="App">
+      <DragDropContext onDragEnd={handleDragEnd}>
+        {_.map(state, (data,key)=>{
+          return(
+            <div key={key} className={"column"} >
+              <h2>{data.title}</h2>
+              
+              <Droppable droppableId={key} >
+                {(provided, snapshot)=>{
+                  return(
+                    <div ref={provided.innerRef} {...provided.droppableProps} className={"droppable-col"} >
+                      {data.items.map((el, index)=>{
+                        return(
+                          <Draggable key={el.id} index={index} draggableId={el.id}>
+                            {(provided,snapshot)=>{
+
+                              return(
+                                <div>
+                       <div className={`item ${snapshot.isDragging && "dragging"}`}  ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                {el.name}
+                             
+                              <button  className={"delBtn"} onClick={null}>X</button>
+                              </div> 
+                                </div>
+                              )
+                             
+                            }}
+
+                          </Draggable>
+                        )
+                      })}
+                      {provided.placeholder}
+                     
+                    </div>
+                  )
+
+                }}
+              </Droppable>
+              
+            </div>
+          )
+        })}
+
+      </DragDropContext>
+ main
       </div>
       <div className="App">
         <DragDropContext onDragEnd={handleDragEnd}>
